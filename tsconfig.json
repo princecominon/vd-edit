@@ -5,7 +5,8 @@
     "jsx": "react-jsx",
     "strict": true,
     "noEmit": true,
-    "lib": ["es2015"],
+    // FIXED: Added "dom" and "dom.iterable" so React elements work
+    "lib": ["es2015", "dom", "dom.iterable"],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
