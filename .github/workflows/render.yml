@@ -1,0 +1,32 @@
+name: Render Video
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Render Video
+        # NOTE: Ensure 'MyProject' matches the ID in your Root.tsx
+        run: npx remotion render src/index.ts MyProject out/video.mp4
+
+      - name: Upload Video Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: rendered-video
+          path: out/video.mp4
